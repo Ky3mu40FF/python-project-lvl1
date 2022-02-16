@@ -11,3 +11,6 @@ https://asciinema.org/a/UBUHQvGyBBq8libLSeWaZUIfs
 
 asciinema record with brain-calc tests (Step 6):
 https://asciinema.org/a/XKaMps71v8XusWgR3JzOQ50jH
+
+asciinema record with brain-gcd tests (Step 7):
+https://asciinema.org/a/yLdOirTAIeDgsR0MwCkc3jZKF
