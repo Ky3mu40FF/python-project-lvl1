@@ -8,3 +8,6 @@
 
 asciinema record with brain-even tests (Step 5):
 https://asciinema.org/a/UBUHQvGyBBq8libLSeWaZUIfs
+
+asciinema record with brain-calc tests (Step 6):
+https://asciinema.org/a/XKaMps71v8XusWgR3JzOQ50jH
