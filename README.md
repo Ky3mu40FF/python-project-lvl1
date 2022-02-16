@@ -14,3 +14,6 @@ https://asciinema.org/a/XKaMps71v8XusWgR3JzOQ50jH
 
 asciinema record with brain-gcd tests (Step 7):
 https://asciinema.org/a/yLdOirTAIeDgsR0MwCkc3jZKF
+
+asciinema record with brain-progression tests (Step 8):
+https://asciinema.org/a/ZBb7GicwAbC4E7vlJLYwiMTei
