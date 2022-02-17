@@ -17,3 +17,6 @@ https://asciinema.org/a/yLdOirTAIeDgsR0MwCkc3jZKF
 
 asciinema record with brain-progression tests (Step 8):
 https://asciinema.org/a/ZBb7GicwAbC4E7vlJLYwiMTei
+
+asciinema record with brain-prime tests (Step 9):
+https://asciinema.org/a/k1DjlT1VLRM8N74xGPPuVR6Ds
