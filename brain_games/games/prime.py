@@ -26,6 +26,8 @@ def is_prime(number: int) -> bool:
     Returns:
         check result (bool): True if prime and False otherwise
     """
+    if number == 1:
+        return False
     for num in range(2, int(math.sqrt(number)) + 1):
         if number % num == 0:
             return False
@@ -39,7 +41,7 @@ def game_step() -> bool:
         bool: Correctness of the answer
     """
     # Generate random length, hidden element index and sequence
-    question_value = random.randint(1, MAX_RAND_VALUE)
+    question_value = random.randint(2, MAX_RAND_VALUE)
 
     # Ask user
     print('Question: {0}'.format(question_value))
