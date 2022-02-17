@@ -7,20 +7,20 @@ import prompt
 NUM_GEN_BORDERS = (0, 20)
 
 
-def get_game_rules():
+def get_game_rules() -> str:
     """Brain-calc game rules getter.
 
     Returns:
-        string: Text with brain-calc game rules
+        rules text (str): Text with brain-calc game rules
     """
     return 'What is the result of the expression?'
 
 
-def game_step():
+def game_step() -> bool:
     """Generate question and checks user answer.
 
     Returns:
-        boolean: Correctness of the answer
+        bool: Correctness of the answer
     """
     operator = random.choice(('+', '-', '*'))
     first_operand = random.randint(NUM_GEN_BORDERS[0], NUM_GEN_BORDERS[1])

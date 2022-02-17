@@ -7,20 +7,20 @@ import prompt
 NUM_GEN_BORDERS = (0, 20)
 
 
-def get_game_rules():
+def get_game_rules() -> str:
     """Brain-even game rules getter.
 
     Returns:
-        string: Text with brain-even game rules
+        rules text (str): Text with brain-even game rules
     """
     return 'Answer "yes" if the number is even, otherwise answer "no".'
 
 
-def game_step():
+def game_step() -> bool:
     """Generate question and checks user answer.
 
     Returns:
-        boolean: Correctness of the answer
+        bool: Correctness of the answer
     """
     # Match between even check results and correct answers
     correct_answers = {True: 'yes', False: 'no'}

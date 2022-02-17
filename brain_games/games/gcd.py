@@ -7,20 +7,20 @@ import prompt
 NUM_GEN_BORDERS = (1, 200)
 
 
-def get_game_rules():
+def get_game_rules() -> str:
     """Brain-gcd game rules getter.
 
     Returns:
-        string: Text with brain-gcd game rules
+        rules text (str): Text with brain-gcd game rules
     """
     return 'Find the greatest common divisor of given numbers.'
 
 
-def game_step():
+def game_step() -> bool:
     """Generate question and checks user answer.
 
     Returns:
-        boolean: Correctness of the answer
+        bool: Correctness of the answer
     """
     # Generating two random positive integer numbers
     num1, num2 = random.sample(
