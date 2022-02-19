@@ -2,58 +2,58 @@
 
 import random
 
-import prompt
-
 NUM_GEN_BORDERS = (0, 20)
+GAME_RULES = 'What is the result of the expression?'
 
 
-def get_game_rules() -> str:
-    """Brain-calc game rules getter.
+def calculate_expression(operator, first_operand, second_operand) -> int:
+    """Calculate the given expression.
 
-    Returns:
-        rules text (str): Text with brain-calc game rules
-    """
-    return 'What is the result of the expression?'
-
-
-def game_step() -> bool:
-    """Generate question and checks user answer.
+    Args:
+        operator (str): Operator of the expression.
+        first_operand (int): First (left) operand of the expression.
+        second_operand (int): Second (right) operand of the expression.
 
     Returns:
-        bool: Correctness of the answer
+        int: Result of calculation.
     """
+    calculation_result = 0
+    # Perform calculation
+    # Python 3.8 - no pattern matching
+    if operator == '+':
+        calculation_result = first_operand + second_operand
+    elif operator == '-':
+        calculation_result = first_operand - second_operand
+    elif operator == '*':
+        calculation_result = first_operand * second_operand
+
+    return calculation_result
+
+
+def generate_question_and_answer() -> str:
+    """Generate question for the player and correct answer.
+
+    Returns:
+        tuple(str, str): Tuple with question and correct answer
+    """
+    # Generating operator (+ or - or *)
+    # and two random integer numbers (operands)
     operator = random.choice(('+', '-', '*'))
     first_operand = random.randint(NUM_GEN_BORDERS[0], NUM_GEN_BORDERS[1])
     second_operand = random.randint(NUM_GEN_BORDERS[0], NUM_GEN_BORDERS[1])
 
-    correct_answer = 0
-    # Perform calculation
-    # Python 3.8 - no pattern matching
-    if operator == '+':
-        correct_answer = first_operand + second_operand
-    elif operator == '-':
-        correct_answer = first_operand - second_operand
-    elif operator == '*':
-        correct_answer = first_operand * second_operand
-
-    # Ask user and get his answer
-    print('Question: {0} {1} {2}'.format(
+    # Generate question
+    question = 'Question: {0} {1} {2}'.format(
         first_operand,
         operator,
         second_operand,
-    ))
-    answer = prompt.string('Your answer: ')
+    )
 
-    # Check user's answer
-    # Print and return result of current step
-    # Convert correct answer (calculated) to str
-    # instead of using try-catch to convert user-inputed answer to int
-    if answer == str(correct_answer):
-        print('Correct!')
-        return True
+    # Get correct answer
+    correct_answer = calculate_expression(
+        operator,
+        first_operand,
+        second_operand,
+    )
 
-    print("'{0}' is wrong answer ;(. Correct answer was '{1}'.".format(
-        answer,
-        correct_answer,
-    ))
-    return False
+    return (question, str(correct_answer))

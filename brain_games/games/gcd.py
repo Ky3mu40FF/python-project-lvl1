@@ -2,25 +2,44 @@
 
 import random
 
-import prompt
-
 NUM_GEN_BORDERS = (1, 200)
+GAME_RULES = 'Find the greatest common divisor of given numbers.'
 
 
-def get_game_rules() -> str:
-    """Brain-gcd game rules getter.
+def calculate_gcd(num1: int, num2: int) -> int:
+    """Calculate the greatest common division (GCD) of two numbers.
+
+    Args:
+        num1 (int): First number.
+        num2 (int): Second number.
 
     Returns:
-        rules text (str): Text with brain-gcd game rules
+        int: Greatest common division (GCD) of two numbers.
     """
-    return 'Find the greatest common divisor of given numbers.'
+    # Make a life a little easier
+    # Greater number is first
+    if num1 < num2:
+        num1, num2 = num2, num1
+
+    gcd = 0
+
+    # The Euclidean algorithm
+    while True:
+        remainder = num1 % num2
+        if remainder == 0:
+            gcd = num2
+            break
+        else:
+            num1, num2 = num2, remainder
+
+    return gcd
 
 
-def game_step() -> bool:
-    """Generate question and checks user answer.
+def generate_question_and_answer() -> str:
+    """Generate question for the player and correct answer.
 
     Returns:
-        bool: Correctness of the answer
+        tuple(str, str): Tuple with question and correct answer
     """
     # Generating two random positive integer numbers
     num1, num2 = random.sample(
@@ -28,40 +47,13 @@ def game_step() -> bool:
         2,
     )
 
-    # Ask user
-    print('Question: {0} {1}'.format(
+    # Generate question
+    question = 'Question: {0} {1}'.format(
         num1,
         num2,
-    ))
+    )
 
-    # Make a life a little easier
-    if num1 < num2:
-        num1, num2 = num2, num1
+    # Get correct answer
+    correct_answer = calculate_gcd(num1, num2)
 
-    correct_answer = 0
-
-    # The Euclidean algorithm
-    while True:
-        remainder = num1 % num2
-        if remainder == 0:
-            correct_answer = num2
-            break
-        else:
-            num1, num2 = num2, remainder
-
-    # Get user's answer
-    answer = prompt.string('Your answer: ')
-
-    # Check user's answer
-    # Print and return result of current step
-    # Convert correct answer (calculated) to str
-    # instead of using try-catch to convert user-inputed answer to int
-    if answer == str(correct_answer):
-        print('Correct!')
-        return True
-
-    print("'{0}' is wrong answer ;(. Correct answer was '{1}'.".format(
-        answer,
-        correct_answer,
-    ))
-    return False
+    return (question, str(correct_answer))

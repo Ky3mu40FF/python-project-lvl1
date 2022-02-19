@@ -2,46 +2,35 @@
 
 import random
 
-import prompt
-
 NUM_GEN_BORDERS = (0, 20)
+GAME_RULES = 'Answer "yes" if the number is even, otherwise answer "no".'
 
 
-def get_game_rules() -> str:
-    """Brain-even game rules getter.
+def is_even(num: int) -> bool:
+    """Check if number is even.
 
-    Returns:
-        rules text (str): Text with brain-even game rules
-    """
-    return 'Answer "yes" if the number is even, otherwise answer "no".'
-
-
-def game_step() -> bool:
-    """Generate question and checks user answer.
+    Args:
+        num (int): The number to be checked for evenness
 
     Returns:
-        bool: Correctness of the answer
+        bool: Returns True if number is even. False otherwise.
     """
-    # Match between even check results and correct answers
-    correct_answers = {True: 'yes', False: 'no'}
+    return num % 2 == 0
 
+
+def generate_question_and_answer() -> str:
+    """Generate question for the player and correct answer.
+
+    Returns:
+        tuple(str, str): Tuple with question and correct answer
+    """
     # Get random integer value for question
     generated_number = random.randint(NUM_GEN_BORDERS[0], NUM_GEN_BORDERS[1])
 
-    # Ask user and get his answer
-    print('Question: {0}'.format(generated_number))
-    answer = prompt.string('Your answer: ')
+    # Generate question
+    question = 'Question: {0}'.format(generated_number)
 
-    # Check if number is even and check user' answer
-    is_number_even = generated_number % 2 == 0
-    is_answer_correct = correct_answers[is_number_even] == answer
+    # Get correct answer
+    correct_answer = 'yes' if is_even(generated_number) else 'no'
 
-    # Print and return result of current step
-    if is_answer_correct:
-        print('Correct!')
-        return True
-
-    print("'{0}' is wrong answer ;(. Correct answer was '{1}'.".format(
-        answer, correct_answers[is_number_even],
-    ))
-    return False
+    return (question, str(correct_answer))

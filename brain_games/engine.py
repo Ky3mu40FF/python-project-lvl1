@@ -20,15 +20,27 @@ def run_game(game_module):
     print('Hello, {0}!'.format(user_name))
 
     # Print rules of the game
-    rules_text = game_module.get_game_rules()
-    print(rules_text)
+    print(game_module.GAME_RULES)
 
     # Run game cycle
     correct_answers_count = 0
     while correct_answers_count < GAME_CYCLES:
-        if game_module.game_step():
+
+        question, correct_answer = game_module.generate_question_and_answer()
+
+        print(question)
+
+        # Get user's answer
+        answer = prompt.string('Your answer: ')
+
+        if answer == correct_answer:
+            print('Correct!')
             correct_answers_count += 1
         else:
+            print("'{0}' is wrong answer ;(. Correct answer was '{1}'.".format(
+                answer,
+                correct_answer,
+            ))
             print("Let's try again, {0}!".format(user_name))
             return
 
