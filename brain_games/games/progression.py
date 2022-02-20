@@ -3,27 +3,29 @@
 import random
 from typing import Tuple
 
-MAX_PROGRESSION_FIRST_TERM_VALUE = 100
-MAX_PROGRESSION_COEFFICIENT = 10
-LENGTH_BOUNDARY = (5, 10)
 GAME_RULES = 'What number is missing in the progression?'
+INITIAL_TERM_BOUNDARIES = (0, 100)
+COMMON_DIFFERENCE_BOUNDARIES = (5, 10)
+NUM_OF_TERMS_BOUNDARIES = (5, 10)
 
 
-def generate_random_sequence(num_of_terms: int) -> Tuple[int]:
-    """Generate random arithmetic sequence with given length.
+def generate_arithmetic_sequence(
+    initial_term: int,
+    common_difference: int,
+    num_of_terms: int,
+) -> Tuple[int]:
+    """Generate arithmetic sequence.
 
     Args:
-        num_of_terms (int): Number of elements in arithmetic sequence
+        initial_term (int): Initial term of an arithmetic sequence.
+        common_difference (int): Constant difference between consecutive terms.
+        num_of_terms (int): Number of terms in arithmetic sequence.
 
     Returns:
-        sequence (Tuple[int]): Arithmetic sequence with given length
+        Tuple[int]: Arithmetic sequence with given length
     """
-    first_term = random.randint(0, MAX_PROGRESSION_FIRST_TERM_VALUE)
-    coefficient = random.randint(1, MAX_PROGRESSION_COEFFICIENT)
-
-    last_term = first_term + (num_of_terms - 1) * coefficient
-
-    return tuple(range(first_term, last_term + 1, coefficient))
+    last_term = initial_term + (num_of_terms - 1) * common_difference
+    return tuple(range(initial_term, last_term + 1, common_difference))
 
 
 def generate_question_from_sequence(
@@ -39,32 +41,29 @@ def generate_question_from_sequence(
     Returns:
         str: String with arithmetic sequence with hidden element
     """
-    question_seq = ''
-    for el in sequence:
-        if sequence.index(el) == element_to_hide_index:
-            question_seq = '{0}{1} '.format(question_seq, '..')
-        else:
-            question_seq = '{0}{1} '.format(question_seq, str(el))
-    return question_seq.rstrip()
+    return ' '.join([
+        '..' if index == element_to_hide_index
+        else str(element)
+        for index, element in enumerate(sequence)
+    ])
 
 
-def generate_question_and_answer() -> str:
+def generate_question_and_answer() -> Tuple[str, str]:
     """Generate question for the player and correct answer.
 
     Returns:
-        tuple(str, str): Tuple with question and correct answer
+        Tuple[str, str]: Tuple with question and correct answer
     """
-    # Generate random length, hidden element index and sequence
-    sequence_lenght = random.randint(LENGTH_BOUNDARY[0], LENGTH_BOUNDARY[1])
-    hidden_element_index = random.randint(0, sequence_lenght - 1)
-    sequence = generate_random_sequence(sequence_lenght)
-
-    # Generate question
-    question = 'Question: {0}'.format(
-        generate_question_from_sequence(sequence, hidden_element_index),
+    sequence = generate_arithmetic_sequence(
+        initial_term=random.randint(*INITIAL_TERM_BOUNDARIES),
+        common_difference=random.randint(*COMMON_DIFFERENCE_BOUNDARIES),
+        num_of_terms=random.randint(*NUM_OF_TERMS_BOUNDARIES),
     )
+    element_to_hide_index = random.randint(0, len(sequence) - 1)
 
-    # Get correct answer
-    correct_answer = sequence[hidden_element_index]
-
-    return (question, str(correct_answer))
+    question = generate_question_from_sequence(
+        sequence,
+        element_to_hide_index,
+    )
+    correct_answer = sequence[element_to_hide_index]
+    return question, str(correct_answer)

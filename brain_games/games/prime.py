@@ -2,9 +2,12 @@
 
 import math
 import random
+from types import MappingProxyType  # Immutable dict for constant (WPS407)
+from typing import Tuple
 
-MAX_RAND_VALUE = 10
 GAME_RULES = 'Answer "yes" if given number is prime. Otherwise answer "no".'
+NUM_GEN_BORDERS = (1, 10)
+IS_PRIME_TO_CORRECT_ANSWER = MappingProxyType({True: 'yes', False: 'no'})
 
 
 def is_prime(number: int) -> bool:
@@ -26,19 +29,13 @@ def is_prime(number: int) -> bool:
     return True
 
 
-def generate_question_and_answer() -> str:
+def generate_question_and_answer() -> Tuple[str, str]:
     """Generate question for the player and correct answer.
 
     Returns:
-        tuple(str, str): Tuple with question and correct answer
+        Tuple[str, str]: Tuple with question and correct answer
     """
-    # Generate random integer positive number
-    question_value = random.randint(2, MAX_RAND_VALUE)
-
-    # Generate question
-    question = 'Question: {0}'.format(question_value)
-
-    # Get correct answer
-    correct_answer = 'yes' if is_prime(question_value) else 'no'
-
-    return (question, str(correct_answer))
+    generated_number = random.randint(*NUM_GEN_BORDERS)
+    question = str(generated_number)
+    correct_answer = IS_PRIME_TO_CORRECT_ANSWER.get(is_prime(generated_number))
+    return question, str(correct_answer)

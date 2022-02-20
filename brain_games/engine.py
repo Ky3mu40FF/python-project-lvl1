@@ -28,9 +28,8 @@ def run_game(game_module):
 
         question, correct_answer = game_module.generate_question_and_answer()
 
-        print(question)
+        print('Question: {0}'.format(question))
 
-        # Get user's answer
         answer = prompt.string('Your answer: ')
 
         if answer == correct_answer:

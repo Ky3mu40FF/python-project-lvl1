@@ -1,9 +1,10 @@
 """brain-gcd game module."""
 
 import random
+from typing import Tuple
 
-NUM_GEN_BORDERS = (1, 200)
 GAME_RULES = 'Find the greatest common divisor of given numbers.'
+NUM_GEN_BORDERS = (1, 200)
 
 
 def calculate_gcd(num1: int, num2: int) -> int:
@@ -35,25 +36,19 @@ def calculate_gcd(num1: int, num2: int) -> int:
     return gcd
 
 
-def generate_question_and_answer() -> str:
+def generate_question_and_answer() -> Tuple[str, str]:
     """Generate question for the player and correct answer.
 
     Returns:
-        tuple(str, str): Tuple with question and correct answer
+        Tuple[str, str]: Tuple with question and correct answer
     """
-    # Generating two random positive integer numbers
     num1, num2 = random.sample(
-        range(NUM_GEN_BORDERS[0], NUM_GEN_BORDERS[1]),
+        range(*NUM_GEN_BORDERS),
         2,
     )
-
-    # Generate question
-    question = 'Question: {0} {1}'.format(
+    question = '{0} {1}'.format(
         num1,
         num2,
     )
-
-    # Get correct answer
     correct_answer = calculate_gcd(num1, num2)
-
-    return (question, str(correct_answer))
+    return question, str(correct_answer)
